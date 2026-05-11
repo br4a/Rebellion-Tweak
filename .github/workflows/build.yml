@@ -7,20 +7,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-13
     steps:
       - uses: actions/checkout@v4
 
       - name: setup
-        run: |
-          sudo apt-get update -yq
-          sudo apt-get install -yq build-essential   
-          git clone -q --recursive https://github.com/theos/theos.git ~/theos
-          mkdir -p ~/theos/sdks
-          curl -ksL "https://github.com/theos/sdks/raw/master/iPhoneOS14.5.sdk.tar.xz" -o ~/theos/sdks/iPhoneOS14.5.sdk.tar.xz
-          tar -xf ~/theos/sdks/iPhoneOS14.5.sdk.tar.xz -C ~/theos/sdks/
-          rm ~/theos/sdks/iPhoneOS14.5.sdk.tar.xz
-          echo "THEOS=~/theos" >> $GITHUB_ENV
+        uses: ezisofg/setup-theos@v1
+        with:
+          sdk-version: '14.5'
 
       - name: compile
         run: |
