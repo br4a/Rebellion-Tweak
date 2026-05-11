@@ -15,7 +15,7 @@ jobs:
         run: |
           sudo apt-get update -yq
           sudo apt-get install -yq build-essential
-          git clone -q --recursive https://github.com/theos/theos.git ~/theos
+          git clone -q --recursive https://github.com/roothide/theos.git ~/theos
           rm -rf ~/theos/sdks
           git clone -q --depth=1 https://github.com/theos/sdks.git ~/theos/sdks
           echo "THEOS=~/theos" >> $GITHUB_ENV
