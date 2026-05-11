@@ -14,7 +14,7 @@ jobs:
       - name: setup
         run: |
           sudo apt-get update -yq
-          sudo apt-get install -yq build-essential
+          sudo apt-get install -yq build-essential clang llvm ldid uuid-dev checkinstall libssl-dev
           git clone -q --recursive https://github.com/roothide/theos.git ~/theos
           rm -rf ~/theos/sdks
           git clone -q --depth=1 https://github.com/theos/sdks.git ~/theos/sdks
