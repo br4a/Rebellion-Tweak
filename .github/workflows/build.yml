@@ -1,4 +1,4 @@
-name: Build Rebellion Tweak
+name: build
 
 on:
   push:
@@ -9,32 +9,23 @@ jobs:
   build:
     runs-on: macos-13
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install Theos and SDK
+      - name: setup
         run: |
-          # 1. تحميل ثيوس في المجلد الافتراضي
-          git clone --recursive https://github.com/theos/theos.git ~/theos
-          
-          # 2. إنشاء مجلد الـ SDKs
+          git clone -q --recursive https://github.com/theos/theos.git ~/theos
           mkdir -p ~/theos/sdks
-          
-          # 3. تحميل الـ SDK الرسمي والمضمون لـ iOS 14.5 وفكه مباشرة
           curl -ksL "https://github.com/theos/sdks/raw/master/iPhoneOS14.5.sdk.tar.xz" -o ~/theos/sdks/iPhoneOS14.5.sdk.tar.xz
           tar -xf ~/theos/sdks/iPhoneOS14.5.sdk.tar.xz -C ~/theos/sdks/
           rm ~/theos/sdks/iPhoneOS14.5.sdk.tar.xz
-          
-          # 4. تعريف مسار الثيوس في بيئة جيت هاب
           echo "THEOS=~/theos" >> $GITHUB_ENV
 
-      - name: Build Package (Roothide)
+      - name: compile
         run: |
           export THEOS=~/theos
           make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=roothide
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: RebellionAlert-DEB
           path: packages/*.deb
