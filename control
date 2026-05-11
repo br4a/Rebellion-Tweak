@@ -1,0 +1,9 @@
+Package: com.rebellion.alert
+Name: RebellionAlert
+Depends: mobilesubstrate
+Version: 1.0.0
+Architecture: iphoneos-arm64
+Description: Welcome Alert with Rights and Telegram Support
+Author: rebellion
+Maintainer: rebellion
+Section: Tweaks
